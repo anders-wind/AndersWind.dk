@@ -5,11 +5,11 @@
   "HeaderTitle": "Anders Wind's Portfolio",
   "HeaderImage": "../images/header5.jpg",
   "MainTitle": "Anders Wind",
-  "MainText": "I am a 6th semester software development student at the IT-University of Copenhagen in Denmark and a freelance developer.",
+  "MainText": "I'm a graduate student and analyst at Netcompany.",
   "ProfileImage": "../images/profile-pic.jpg",
   "AboutTitle": "About me",
-  "AboutText": "I create software solutions for companies and people, who want to improve their work-processes with IT. I focus on making IT as easy and simple to use while solving the critical problems.\n I write code in a lot of languages but mainly focus on C# and F#.",
-  "ServicesTitle": "I can help you with",
+  "AboutText": "I'm pursuing a specialization in algorithms in my master's degree. I am also interested in distributed systems, AI and machine learning. \nCurrently my hobby projects are focused on working with .NET Core, Jenkins and Docker",
+  "ServicesTitle": "Skills",
   "ServicesCollection": [
     {
       "Title": ".NET",
@@ -20,23 +20,34 @@
     {
       "Title": "Native Apps",
       "Symbol": "fa-laptop",
-      "Description": "Responsive native apps for Windows 7 and 8 PCs as well as all Windows 10 devices.",
+      "Description": "Responsive native apps for Windows 10 devices.",
       "Delay": "0.12s"
     },
     {
       "Title": "Cloud Services",
       "Symbol": "fa-cloud",
-      "Description": "Allowing multiple services to talk together enabling you and your team to work together to solve your problems.",
+      "Description": "Distributed systems using modern technologies and frameworks such as CI and docker",
       "Delay": "0.24s"
     },
     {
-      "Title": "Collaboration",
-      "Symbol": "fa-heart",
-      "Description": "Collaborating with you makes sure that we reach the best solution together!",
+      "Title": "Algorithms",
+      "Symbol": "fa fa-cogs",
+      "Description": "Wide range of algorithmic tools for solving hard problems",
       "Delay": "0.36s"
     }
   ],
   "ProjectCollection": [
+    {
+      "Id": "Project0",
+      "Category": "Algorithms",
+      "Title": "Mininumum Fill-in",
+      "Description": "The public repository for the submission of the PACE challenge 2017 B-Track: Minimum Fill-In. The minfill problem is NP-complete, in this project we implemented a subexponential parameterized algorithm.",
+      "Image": "../images/portfolio/MinFill-Showcase.png",
+      "Date": "January 2017 - June 2017",
+      "Service": "Algorithms",
+      "ProjectLink": "https://github.com/Awia00/MinFill-SubExponential",
+      "ProjectLinkText": "Github"
+    },
     {
       "Id": "Project1",
       "Category": "Graphics",
