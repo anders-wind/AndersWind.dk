@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using AndersWind.dk.ViewModels;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace AndersWind.dk
 {
@@ -27,7 +30,14 @@ namespace AndersWind.dk
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var data = JsonConvert.DeserializeObject<HomeViewModel>(File.ReadAllText("wwwroot/data.json"));
             // Add framework services.
+            services.AddSingleton(new Config()
+            {
+                HomeViewModel = data,
+                GenericErrorViewModel = new ErrorViewModel() { BackgroundColor = data.BackgroundColor, BackgroundColorFocus = data.BackgroundColorFocus, HeaderImage = "../images/header5.jpg" },
+                StatusCodeErrorViewModel = new ErrorViewModel() { BackgroundColor = data.BackgroundColor, BackgroundColorFocus = data.BackgroundColorFocus, HeaderImage = "../images/header5.jpg", ErrorMessage = "The page you tried to access did not exist" }
+            });
             services.AddMvc();
         }
 
@@ -45,6 +55,7 @@ namespace AndersWind.dk
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
             }
 
             app.UseStaticFiles();

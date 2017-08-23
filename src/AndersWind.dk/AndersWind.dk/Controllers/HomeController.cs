@@ -8,13 +8,19 @@ namespace AndersWind.dk.Controllers
 {
     public class HomeController : Controller
     {
+        private Config Config { get; }
+        public HomeController(Config config)
+        {
+            Config = config;
+        }
         public IActionResult Index()
         {
-            return View();
+            return View(Config.HomeViewModel);
         }
 
         public IActionResult About()
         {
+            return Error();
             ViewData["Message"] = "Your application description page.";
 
             return View();
@@ -22,6 +28,7 @@ namespace AndersWind.dk.Controllers
 
         public IActionResult Contact()
         {
+            return Error();
             ViewData["Message"] = "Your contact page.";
 
             return View();
@@ -29,7 +36,13 @@ namespace AndersWind.dk.Controllers
 
         public IActionResult Error()
         {
-            return View();
+            return View(Config.GenericErrorViewModel);
+        }
+
+        [Route("Home/Error/{code}")]
+        public IActionResult Error(int code)
+        {
+            return View(Config.StatusCodeErrorViewModel);
         }
     }
 }
