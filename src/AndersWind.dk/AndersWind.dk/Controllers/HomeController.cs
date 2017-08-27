@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AndersWind.dk.Repositories;
+using AndersWind.dk.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AndersWind.dk.Controllers
 {
     public class HomeController : Controller
     {
-        private Config Config { get; }
-        public HomeController(Config config)
+        private IHomeRepository HomeRepository { get; }
+        public HomeController(IHomeRepository homeRepository)
         {
-            Config = config;
+            HomeRepository = homeRepository;
         }
         public IActionResult Index()
         {
-            return View(Config.HomeViewModel);
+            var homeModel = new HomeViewModel(HomeRepository.GetHome(1));
+            return View(homeModel);
         }
 
         public IActionResult About()
@@ -36,13 +39,13 @@ namespace AndersWind.dk.Controllers
 
         public IActionResult Error()
         {
-            return View(Config.GenericErrorViewModel);
+            return View();
         }
 
         [Route("Home/Error/{code}")]
         public IActionResult Error(int code)
         {
-            return View(Config.StatusCodeErrorViewModel);
+            return View();
         }
     }
 }

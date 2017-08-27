@@ -1,0 +1,132 @@
+﻿{
+  "Title": "Anders Wind",
+  "BackgroundColor": "#2D7A97",
+  "BackgroundColorFocus": "#116F93",
+  "HeaderTitle": "Anders Wind's Portfolio",
+  "HeaderImage": "../images/header5.jpg",
+  "MainTitle": "Anders Wind",
+  "MainText": "I'm a graduate student at ITU and analyst at Netcompany.",
+  "ProfileImage": "../images/profile-pic.jpg",
+  "AboutTitle": "About me",
+  "AboutText": "I'm pursuing a specialization in algorithms in my master's degree. I am also interested in distributed systems, AI and machine learning. \nCurrently my hobby projects are focused on working with .NET Core, Jenkins and Docker",
+  "ServicesTitle": "Skills",
+  "ServicesCollection": [
+    {
+      "Title": ".NET",
+      "Symbol": "fa-windows",
+      "Description": "A lot of experience with Microsoft's .NET platform and C# and F#",
+      "Delay": "0.00s"
+    },
+    {
+      "Title": "Native Apps",
+      "Symbol": "fa-laptop",
+      "Description": "Responsive native apps for Windows 10 devices.",
+      "Delay": "0.12s"
+    },
+    {
+      "Title": "Cloud Services",
+      "Symbol": "fa-cloud",
+      "Description": "Distributed systems using modern technologies and frameworks such as CI and docker",
+      "Delay": "0.24s"
+    },
+    {
+      "Title": "Algorithms",
+      "Symbol": "fa fa-cogs",
+      "Description": "Wide range of algorithmic tools for solving hard problems",
+      "Delay": "0.36s"
+    }
+  ],
+  "ProjectCollection": [
+    {
+      "Id": "Project0",
+      "Category": "Algorithms",
+      "Title": "Mininumum Fill-in",
+      "Description": "The public repository for the submission of the PACE challenge 2017 B-Track: Minimum Fill-In. The minfill problem is NP-complete, in this project we implemented a subexponential parameterized algorithm.",
+      "Image": "../images/portfolio/MinFill-Showcase.png",
+      "Date": "January 2017 - June 2017",
+      "Service": "Algorithms",
+      "ProjectLink": "https://github.com/Awia00/MinFill-SubExponential",
+      "ProjectLinkText": "Github"
+    },
+    {
+      "Id": "Project1",
+      "Category": "Graphics",
+      "Title": "Ray Tracing",
+      "Description": "This project includes three implementations of the Ray Tracing algorithm. One written in C#, one in C++ and one in Java. The feature level of the implemenations vary but the C# implementation is the furthest, with both reflections, refractions, Snell's law, soft shadows, depth of field and a lot of other features",
+      "Image": "https://raw.githubusercontent.com/Awia00/Ray-Tracing/master/RayTracerShowcaseWebsiteSize.png",
+      "Date": "March 2014 - June 2015",
+      "Service": "Graphics",
+      "ProjectLink": "https://github.com/Awia00/Ray-Tracing",
+      "ProjectLinkText": "Github"
+    },
+    {
+      "Id": "Project2",
+      "Category": "Native Apps",
+      "Title": "Call Center System",
+      "Description": "Nordsjælland Brandvæsen (a regional firefighter emergency center) was in need of a smarter way to access routines in their call center unit. Therefore we created a native Windows client for their unit to access all of their routines as well as edit them. The project includes a web API implementation with custom and secure identification system.\nThe source is closed source for now but will be open sourced later on",
+      "Image": "../images/portfolio/VAC-Showcase.png",
+      "Client": "Nordsjælland Brandvæsen",
+      "ClientLink": "http://www.nsbv.dk/",
+      "Date": "November-December 2015",
+      "Service": "Native Apps",
+      "ProjectLink": null,
+      "ProjectLinkText": null
+    },
+    {
+      "Id": "Project3",
+      "Category": "Web Development",
+      "Title": "Is Cafe Analog Open?",
+      "Description": "At our university we have a student cafe which sells some of the best coffee. A friend and I decided to help them out and create a small and simple Chrome extension such that thirsty students quickly can see if Cafe Analog is open or not.",
+      "Image": "https://raw.githubusercontent.com/AnalogIO/CafeAnalog-ChromeExtension/master/ShowcaseImg.png",
+      "Date": "November 2015",
+      "Service": "Web Development",
+      "ProjectLink": "https://github.com/AnalogIO/CafeAnalog-ChromeExtension",
+      "ProjectLinkText": "Github"
+    },
+    {
+      "Id": "Project4",
+      "Category": "Distributed Systems",
+      "Title": "Distributed DCR Graphs",
+      "Description": "In this project a group of me and 5 other students had to create a distributed implementation of the DCR graphs created at ITU by Thomas Hildebrandt. Furthermore a client had to be made, which should allow only certain roles to execute certain events. The architecture is based on a peer-to-peer system, where a central server is only used at graph initiation and when a client wants to access the graph. The solution is well tested and documented and SCRUM was used to manage the team over the course of the implementation.",
+      "Image": "../images/portfolio/Flow-IT-Showcase.png",
+      "Date": "Spring 2015",
+      "Service": "Distributed Systems",
+      "ProjectLink": "https://github.com/andersfischernielsen/FlowIT-Second-Year-Project",
+      "ProjectLinkText": "Github"
+    },
+    {
+      "Id": "Project5",
+      "Category": "Native Apps",
+      "Title": "Car lot CRUD system",
+      "Description": "In this project a group of me and 4 other students had to develop a Windows Client in WPF, a Asp.NET API and Application of a car lot sales system. I was in charge of the Windows Client app and recieved full marks for the assignment.",
+      "Image": "../images/portfolio/DriveIT-Showcase.png",
+      "Date": "Autumn 2014",
+      "Service": "Native Apps",
+      "ProjectLink": "https://github.com/andersfischernielsen/DriveIT",
+      "ProjectLinkText": "Github"
+    },
+    {
+      "Id": "Project6",
+      "Category": "Algorithms",
+      "Title": "Map of Denmark",
+      "Description": "This project visualizes a map of Denmark and allows the user to navigate from two destinations either by clicking or writing the addresses. It is implemented in java and used Quadtrees, A* search and couple of other optimizing algorithms. The data used for drawing is OpenStreetMaps",
+      "Image": "https://raw.githubusercontent.com/Awia00/Map-of-Denmark-1.-Year-Project/master/showcase.png",
+      "Date": "Spring 2014",
+      "Service": "Algorithms",
+      "ProjectLink": "https://github.com/Awia00/Map-of-Denmark-1.-Year-Project/blob/master/showcase.png",
+      "ProjectLinkText": "Github"
+    }
+  ],
+  "HaveSecondWebsite": true,
+  "SecondaryWebsiteText": "Check out all my projects on Github!",
+  "SecondaryWebsiteImage": "../images/GitHub-Mark-Light-120px-plus.png",
+  "SecondaryWebsiteLink": "https://github.com/Awia00",
+  "ContactTitle": "Let's get in touch!",
+  "ContactText": "Ready to start your next project with me? That's great! Give me a call or send me an email and I will get back to you as soon as possible!",
+  "Email": "anders-wind@outlook.com",
+  "CellPhoneNumber": "+45 41 36 48 07",
+  "FacebookUri": "https://www.facebook.com/anders.w.steffensen",
+  "TwitterUri": "https://twitter.com/WindAnders",
+  "LinkedInUri": "https://dk.linkedin.com/in/anderswinds",
+  "GooglePlusUri": null
+}
