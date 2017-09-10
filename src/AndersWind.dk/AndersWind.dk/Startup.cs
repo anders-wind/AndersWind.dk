@@ -11,6 +11,7 @@ using AndersWind.dk.ViewModels;
 using Newtonsoft.Json;
 using System.IO;
 using AndersWind.dk.Repositories;
+using Microsoft.Net.Http.Headers;
 
 namespace AndersWind.dk
 {
@@ -53,7 +54,15 @@ namespace AndersWind.dk
                 app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24 * 7; // 7 days
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] =
+                        "public,max-age=" + durationInSeconds;
+                }
+            });
 
             app.UseMvc(routes =>
             {
