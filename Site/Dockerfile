@@ -2,5 +2,5 @@ FROM node:alpine
 COPY . /app
 WORKDIR /app
 RUN npm install
-EXPOSE 1234
+EXPOSE 9876
 ENTRYPOINT ["npm", "run", "serve"]
