@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                archiveArtifacts artifacts: 'Site\dist\', fingerprint: true
+                archiveArtifacts artifacts: 'Site/dist/', fingerprint: true
             }
         }
     }
