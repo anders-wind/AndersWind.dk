@@ -4,4 +4,4 @@ WORKDIR /app
 RUN npm install
 EXPOSE 9876
 ENTRYPOINT ["npm", "run"]
-CMD["build"]
+CMD ["build"]
