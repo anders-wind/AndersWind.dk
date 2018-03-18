@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'ls -a'
+                sh 'find .'
                 archiveArtifacts artifacts: 'dist/', fingerprint: true
             }
         }
