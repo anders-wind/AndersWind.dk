@@ -10,7 +10,8 @@ pipeline {
             }
             steps {
                 sh 'find .'
-                archiveArtifacts artifacts: './Site/dist/', fingerprint: true
+                sh 'mkdir -p dist && cp -r /app/dist/* dist/'
+                archiveArtifacts artifacts: './dist/', fingerprint: true
             }
         }
     }
