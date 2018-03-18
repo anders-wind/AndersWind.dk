@@ -11,16 +11,15 @@ export interface IRenderable {
 }
 
 class Renderer implements IRenderable {
-  private gl: WebGLRenderingContext | null;
-  private program: WebGLProgram | null;
-  private canvas: HTMLCanvasElement;
+  private gl: WebGLRenderingContext | null = null;
+  private program: WebGLProgram | null = null;
+  private canvas: HTMLCanvasElement = document.createElement('canvas');
   private start: number = new Date().getTime();
 
   private idMapper: number[] = Array(0);
   private presses: Press[] = Array(6); // mouse + 5 touch points.
 
   public renderGravityGrid(div: HTMLElement): void {
-    this.canvas = document.createElement('canvas');
     this.canvas.style.width = '100%';
     this.canvas.style.height = '100%';
     div.appendChild(this.canvas);
