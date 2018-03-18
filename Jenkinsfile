@@ -9,10 +9,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'find .'
-                sh 'mkdir -p dist && cp -r /app/dist/* dist/'
-                sh 'find .'
-                archiveArtifacts artifacts: 'dist/', fingerprint: true
+                archiveArtifacts artifacts: '/app/dist/', fingerprint: true
             }
         }
     }
