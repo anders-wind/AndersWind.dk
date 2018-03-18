@@ -4,7 +4,7 @@ pipeline {
         stage('BuildSite') {
             agent {
                 dockerfile {
-                    filename 'Site/Dockerfile'
+                    filename 'Dockerfile'
                     additionalBuildArgs '-t awia/anderswind.dk'
                 }
             }
