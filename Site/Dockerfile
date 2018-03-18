@@ -1,5 +1,6 @@
 FROM node:alpine
-CD Site
+COPY Site /app
+WORKDIR /app
 RUN npm install
 RUN npm run build
 CMD ["/bin/sh"]
