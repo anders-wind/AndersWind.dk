@@ -9,8 +9,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'find .'
-                archiveArtifacts artifacts: 'dist/', fingerprint: true
+                archiveArtifacts artifacts: 'Site\dist\', fingerprint: true
             }
         }
     }
