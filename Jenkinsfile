@@ -1,16 +1,18 @@
 pipeline {
     agent none
     stages {
-        step('BuildSite') {
+        stage('BuildSite') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
                     additionalBuildArgs '-t awia/anderswind.dk'
                 }
             }
-        }
-        step('deploy') {
-            sh 'docker-compose up -d'
+        },
+        stage('deploy') {
+            steps {
+                sh 'docker-compose up -d'
+            }
         }
     }
 }
