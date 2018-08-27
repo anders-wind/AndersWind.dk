@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=rekon-traefik_proxy"
+      - "traefik.docker.network=traefik_proxy"
       - "traefik.backend=anderswind"
       - "traefik.frontend.rule=Host:anderswind.dk"
     networks:
