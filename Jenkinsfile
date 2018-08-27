@@ -12,11 +12,12 @@ pipeline {
                 echo "build"
             }
         }
-        node {
-            stage('deploy') {
-                steps {
-                    sh 'docker-compose up -d'
-                }
+        stage('deploy') {
+            agent {
+                label 'deploy'
+            }
+            steps {
+                sh 'docker-compose up -d'
             }
         }
     }
