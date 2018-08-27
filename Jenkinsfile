@@ -13,8 +13,10 @@ pipeline {
             }
         }
         stage('deploy') {
-            steps {
-                sh 'docker-compose up -d'
+            node {
+                steps {
+                    sh 'docker-compose up -d'
+                }
             }
         }
     }
