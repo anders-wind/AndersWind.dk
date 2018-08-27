@@ -8,7 +8,7 @@ pipeline {
                     additionalBuildArgs '-t awia/anderswind.dk'
                 }
             }
-        },
+        }
         stage('deploy') {
             steps {
                 sh 'docker-compose up -d'
