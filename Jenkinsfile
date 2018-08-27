@@ -12,13 +12,5 @@ pipeline {
                 echo "build"
             }
         }
-        stage('deploy') {
-            agent {
-                label 'docker'
-            }
-            steps {
-                sh 'docker-compose up -d'
-            }
-        }
     }
 }
