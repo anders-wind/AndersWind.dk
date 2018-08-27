@@ -1,3 +1,6 @@
+properties([
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+])
 pipeline {
     agent none
     stages {
