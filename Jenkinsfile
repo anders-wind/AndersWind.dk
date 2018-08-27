@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('BuildSite') {
+        step('BuildSite') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
@@ -9,7 +9,7 @@ pipeline {
                 }
             }
         }
-        stage('deploy') {
+        step('deploy') {
             sh 'docker-compose up -d'
         }
     }
