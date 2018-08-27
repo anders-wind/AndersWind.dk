@@ -8,11 +8,9 @@ pipeline {
                     additionalBuildArgs '-t awia/anderswind.dk'
                 }
             }
-            steps {
-                sh 'mkdir -p dist && cp -r /app/dist/* dist/'
-                archiveArtifacts artifacts: 'dist/', fingerprint: true
-                sh 'rm -rf dist'
-            }
+        }
+        stage('deploy') {
+            sh 'docker-compose up -d'
         }
     }
 }
