@@ -9,6 +9,11 @@ pipeline {
                 }
             }
             steps {
+                echo "build"
+            }
+        }
+        stage('deploy') {
+            steps {
                 sh 'docker-compose up -d'
             }
         }
