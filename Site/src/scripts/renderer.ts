@@ -81,8 +81,8 @@ class Renderer implements IRenderable {
   ): { x: number; y: number } {
     const rect: ClientRect = canvas.getBoundingClientRect();
     return {
-      x: (x - rect.left) / (rect.right - rect.left) * canvas.width,
-      y: (y - rect.bottom) / (rect.top - rect.bottom) * canvas.height,
+      x: ((x - rect.left) / (rect.right - rect.left)) * canvas.width,
+      y: ((y - rect.bottom) / (rect.top - rect.bottom)) * canvas.height,
     };
   }
   private getMousePos(
@@ -234,8 +234,8 @@ class Renderer implements IRenderable {
               if (id >= 0) {
                 const press: Press = this.presses[id];
                 press.current = {
-                  x: press.current.x + press.delta.x * press.power / 250,
-                  y: press.current.y + press.delta.y * press.power / 250,
+                  x: press.current.x + (press.delta.x * press.power) / 250,
+                  y: press.current.y + (press.delta.y * press.power) / 250,
                 };
               }
             }
