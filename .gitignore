@@ -288,3 +288,4 @@ __pycache__/
 *.xsd.cs
 
 new_site/dist
+new_site/.cache
