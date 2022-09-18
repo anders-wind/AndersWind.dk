@@ -243,7 +243,7 @@ exports.Press = Press;
 },{}],"glsl/2d-vertex-shader.glsl":[function(require,module,exports) {
 module.exports = "#define GLSLIFY 1\nattribute vec2 position;\n  void main() {\n    gl_Position = vec4(position, 0, 1);\n  }";
 },{}],"glsl/2d-fragment-shader.glsl":[function(require,module,exports) {
-module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform float time;\nuniform float gravity;\nuniform float reach;\nuniform int amtPresses;\nuniform vec2 resolution;\nuniform vec2 rotation;\nuniform vec2 pitch; // number of grids\nuniform vec3 presses[6];\n\nvec4 grid(float modX, float modY, float strength) {\n\tfloat density = 0.4 * (1.0 - abs((2.0-min(modX, modY))/2.0)); // grid alpa 0.5 and then anti alias.\n\treturn vec4(0.0, 0.0, 0.0, density*strength);\n}\n\nvoid main() {\n    float resLength = length(resolution);\n\n    vec2 pull = vec2(0.0, 0.0);\n    float strength = 0.15;\n    for(int i = 0; i<=6; i++){\n        if (amtPresses==i)\n            break;\n        vec3 press = presses[i];\n        vec2 delta = press.xy-gl_FragCoord.xy;\n        float distance = length(delta);\n        pull += delta * (gravity*press.z / (distance*distance + reach));\n        \n        float fade = max(0.0, 0.9-distance/resLength); // 1.2 due to some scaling\n        float dist = min(1.0, max(0.0, press.z));\n        strength = max(strength, fade*dist);\n    }\n\n    vec2 newPos = pitch + pull;\n\n    float modX = mod(reach + gl_FragCoord.x, newPos.x);\n    float modY = mod(reach + gl_FragCoord.y, newPos.y);\n\n\tgl_FragColor = grid(modX, modY, strength);\n}";
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform float time;\nuniform float gravity;\nuniform float reach;\nuniform int amtPresses;\nuniform vec2 resolution;\nuniform vec2 rotation;\nuniform vec2 pitch; // number of grids\nuniform vec3 presses[6];\n\nvec4 grid(float modX, float modY, float strength) {\n\tfloat density = 0.4 * (1.0 - abs((2.0-min(modX, modY))/2.0)); // grid alpa 0.5 and then anti alias.\n\treturn vec4(0.0, 0.0, 0.0, density*strength);\n}\n\nvoid main() {\n    float resLength = length(resolution);\n\n    vec2 pull = vec2(0.0, 0.0);\n    float strength = 0.15;\n    for(int i = 0; i<=6; i++){\n        if (amtPresses==i)\n            break;\n        vec3 press = presses[i];\n        vec2 delta = press.xy-gl_FragCoord.xy;\n        float distance = length(delta);\n        pull += delta * (gravity*press.z / (distance*distance + reach));\n\n        float fade = max(0.0, 0.9-distance/resLength); // 1.2 due to some scaling\n        float dist = min(1.0, max(0.0, press.z));\n        strength = max(strength, fade*dist);\n    }\n\n    vec2 newPos = pitch + pull;\n\n    float modX = mod(reach + gl_FragCoord.x, newPos.x);\n    float modY = mod(reach + gl_FragCoord.y, newPos.y);\n\n\tgl_FragColor = grid(modX, modY, strength);\n}\n";
 },{}],"renderer.ts":[function(require,module,exports) {
 "use strict";
 
@@ -302,7 +302,7 @@ var Renderer = /*#__PURE__*/function () {
       this.canvas.style.width = '100%';
       this.canvas.style.height = '100%';
       div.appendChild(this.canvas);
-      this.gl = this.canvas.getContext('experimental-webgl');
+      this.gl = this.canvas.getContext('webgl');
 
       window.onload = function () {
         _this.init();
@@ -520,12 +520,17 @@ var Renderer = /*#__PURE__*/function () {
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0]), this.gl.STATIC_DRAW);
         this.gl.viewport(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight);
         vertexShader = this.gl.createShader(this.gl.VERTEX_SHADER);
+        fragmentShader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
+        this.program = this.gl.createProgram();
+
+        if (vertexShader == null || fragmentShader == null || this.program == null) {
+          return;
+        }
+
         this.gl.shaderSource(vertexShader, vertexShaderSource);
         this.gl.compileShader(vertexShader);
-        fragmentShader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
         this.gl.shaderSource(fragmentShader, fragmentShaderSource);
         this.gl.compileShader(fragmentShader);
-        this.program = this.gl.createProgram();
         this.gl.attachShader(this.program, vertexShader);
         this.gl.attachShader(this.program, fragmentShader);
         this.gl.linkProgram(this.program);
@@ -578,6 +583,11 @@ var Renderer = /*#__PURE__*/function () {
         requestAnimationFrame(function () {
           return _this3.render();
         });
+        var pressSpeed = 8; // initial speed of gravity
+
+        var pressSlowdown = 0.02; // how quickly does the gravity lose power
+
+        var releaseSpeed = 0.02; // how quickly does gravity bounce back to zero.
 
         var _iterator = _createForOfIteratorHelper(this.presses),
             _step;
@@ -587,9 +597,9 @@ var Renderer = /*#__PURE__*/function () {
             var press = _step.value;
 
             if (press && press.isDead && press.power > 0) {
-              press.power -= 2;
-            } else if (press && !press.isDead && press.power < 200) {
-              press.power += 7;
+              press.power -= releaseSpeed * press.power;
+            } else if (press && !press.isDead) {
+              press.power += pressSpeed - pressSlowdown * press.power;
             }
           }
         } catch (err) {
@@ -648,7 +658,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56137" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57454" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

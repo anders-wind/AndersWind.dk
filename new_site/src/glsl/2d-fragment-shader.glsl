@@ -26,7 +26,7 @@ void main() {
         vec2 delta = press.xy-gl_FragCoord.xy;
         float distance = length(delta);
         pull += delta * (gravity*press.z / (distance*distance + reach));
-        
+
         float fade = max(0.0, 0.9-distance/resLength); // 1.2 due to some scaling
         float dist = min(1.0, max(0.0, press.z));
         strength = max(strength, fade*dist);

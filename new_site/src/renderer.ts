@@ -23,7 +23,7 @@ class Renderer implements IRenderable {
     this.canvas.style.width = '100%';
     this.canvas.style.height = '100%';
     div.appendChild(this.canvas);
-    this.gl = this.canvas.getContext('experimental-webgl');
+    this.gl = this.canvas.getContext('webgl');
 
     window.onload = () => {
       this.init();
@@ -97,7 +97,7 @@ class Renderer implements IRenderable {
     canvas: HTMLCanvasElement,
     touch: Touch
   ): { x: number; y: number } {
-    const rect: ClientRect = canvas.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     return this.getPos(canvas, touch.clientX, touch.clientY);
   }
 
@@ -291,15 +291,18 @@ class Renderer implements IRenderable {
         this.gl.drawingBufferHeight
       );
       vertexShader = this.gl.createShader(this.gl.VERTEX_SHADER);
-      this.gl.shaderSource(vertexShader, vertexShaderSource);
-      this.gl.compileShader(vertexShader);
       fragmentShader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-      this.gl.shaderSource(fragmentShader, fragmentShaderSource);
-      this.gl.compileShader(fragmentShader);
       this.program = this.gl.createProgram();
-      this.gl.attachShader(this.program, vertexShader);
-      this.gl.attachShader(this.program, fragmentShader);
-      this.gl.linkProgram(this.program);
+      if (vertexShader == null || fragmentShader == null || this.program == null) {
+        return;
+      }
+      this.gl.shaderSource(vertexShader!, vertexShaderSource);
+      this.gl.compileShader(vertexShader!);
+      this.gl.shaderSource(fragmentShader!, fragmentShaderSource);
+      this.gl.compileShader(fragmentShader!);
+      this.gl.attachShader(this.program!, vertexShader!);
+      this.gl.attachShader(this.program!, fragmentShader!);
+      this.gl.linkProgram(this.program!);
       this.gl.useProgram(this.program);
     }
   }
@@ -307,7 +310,7 @@ class Renderer implements IRenderable {
   private addGLProperties(): void {
     if (this.gl) {
       const positionLocation: number = this.gl.getAttribLocation(
-        this.program,
+        this.program!,
         'position'
       );
       this.gl.enableVertexAttribArray(positionLocation);
@@ -321,7 +324,7 @@ class Renderer implements IRenderable {
       );
 
       const resolutionPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'resolution'
       );
       this.gl.uniform2f(
@@ -331,13 +334,13 @@ class Renderer implements IRenderable {
       );
 
       const rotationPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'rotation'
       );
       this.gl.uniform2f(rotationPosition, 0.5, 0.8);
 
       const timePosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'time'
       );
       this.gl.uniform1f(
@@ -346,25 +349,25 @@ class Renderer implements IRenderable {
       );
 
       const gravityPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'gravity'
       );
       this.gl.uniform1f(gravityPosition, 70);
 
       const reachPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'reach'
       );
       this.gl.uniform1f(reachPosition, 10000);
 
       const offsetPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'offset'
       );
       this.gl.uniform2f(offsetPosition, 0, 0);
 
       const pitchPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'pitch'
       );
       this.gl.uniform2f(pitchPosition, 80, 80);
@@ -373,7 +376,7 @@ class Renderer implements IRenderable {
       for (let i: number = 0; i < 7; i++) {
         if (this.presses[i] && this.presses[i].id !== -1) {
           const pressPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-            this.program,
+            this.program!,
             'presses[' + presses + ']'
           );
           this.gl.uniform3f(
@@ -387,7 +390,7 @@ class Renderer implements IRenderable {
       }
 
       const amtPressesPosition: WebGLUniformLocation | null = this.gl.getUniformLocation(
-        this.program,
+        this.program!,
         'amtPresses'
       );
       this.gl.uniform1i(amtPressesPosition, presses);
@@ -400,11 +403,14 @@ class Renderer implements IRenderable {
       this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
       requestAnimationFrame(() => this.render());
 
+      const pressSpeed = 8; // initial speed of gravity
+      const pressSlowdown = 0.02; // how quickly does the gravity lose power
+      const releaseSpeed = 0.02; // how quickly does gravity bounce back to zero.
       for (const press of this.presses) {
         if (press && press.isDead && press.power > 0) {
-          press.power -= 2;
-        } else if (press && !press.isDead && press.power < 200) {
-          press.power += 7;
+          press.power -= releaseSpeed * press.power;
+        } else if (press && !press.isDead) {
+          press.power += pressSpeed - (pressSlowdown * press.power);
         }
       }
     }
