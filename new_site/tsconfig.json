@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "importHelpers": true,
+    "strict": true,
+    "noEmitHelpers": true,
+    "sourceMap": true
+  },
+}
