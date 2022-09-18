@@ -1,5 +1,5 @@
-import './acrylic.scss';
-import './base.scss';
+import '../styles/acrylic.scss';
+import '../styles/base.scss';
 
 import { IRenderable, Renderer } from './renderer';
 
